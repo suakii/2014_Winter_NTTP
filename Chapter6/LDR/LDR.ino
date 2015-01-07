@@ -1,16 +1,18 @@
-/*
-*/
-
-int sensorPin = 0;
-int ledPin = 6;
-int sensorValue = 0;
+int x = 0;
+int row = 0;
 void setup() {
-
-  pinMode(ledPin, OUTPUT);  
-  Serial.begin(9600);
+Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
+Serial.println("CLEARDATA");
+Serial.println("LABEL,Time,x,sin(x)");
 }
-
 void loop() {
-  sensorValue = analogRead(sensorPin);    
-  Serial.println(sensorValue);
+Serial.print("DATA,TIME,"); Serial.print(x); Serial.print(","); Serial.println(sin(x*PI/180));
+row++;
+x++;
+if (row > 360) 
+{
+row=0;
+Serial.println("ROW,SET,2");
+}
+delay(100);
 }
